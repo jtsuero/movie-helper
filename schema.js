@@ -30,13 +30,16 @@ const RootQuery = new GraphQLObjectType({
       resolve(parent, args) {
         return axios({
           method: 'GET',
-          url: `https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/inception`,
+          url: `https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/${args.film}`,
           headers: {
             'x-rapidapi-key': process.env.API_KEY,
             'x-rapidapi-host':
               'imdb-internet-movie-database-unofficial.p.rapidapi.com',
           },
         }).then(res => [res.data]);
+      },
+      args: {
+        film: {type: GraphQLString},
       },
     },
   },
